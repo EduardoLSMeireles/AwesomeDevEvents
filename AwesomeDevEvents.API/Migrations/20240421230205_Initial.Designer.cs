@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AwesomeDevEvents.API.Migrations
 {
     [DbContext(typeof(DevEventsDbContext))]
-    [Migration("20240224233451_initial")]
-    partial class initial
+    [Migration("20240421230205_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

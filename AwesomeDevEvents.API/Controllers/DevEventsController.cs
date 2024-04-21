@@ -51,6 +51,7 @@ namespace AwesomeDevEvents.API.Controllers
         public IActionResult Post(DevEvent devEvent)
         {
             _context.DevEvents.Add(devEvent);
+            _context.SaveChanges();
 
             return CreatedAtAction(nameof(GetById), new { id = devEvent.Id }, devEvent);
 
@@ -62,12 +63,15 @@ namespace AwesomeDevEvents.API.Controllers
         {
             var devEvent = _context.DevEvents.SingleOrDefault(d => d.Id == id);
 
+
             if (devEvent == null)
             {
                 return NotFound();
             }
 
             devEvent.Update(input.Title, input.Description, input.StartDate, input.EndDate);
+            _context.SaveChanges();
+
 
             return NoContent();
         }
@@ -84,13 +88,15 @@ namespace AwesomeDevEvents.API.Controllers
             }
 
             devEvent.Delete();
+            _context.SaveChanges();
+
 
             return NoContent();
         }
 
         // api/dev-evens/2722ba6-27d7-43c9-8ecc-3d9509e4656e/speakers/POST-2
         [HttpPost("{id}/speakers")]
-        public IActionResult PostSpeaker(DevEventSpeaker speaker)
+        public IActionResult PostSpeaker(Guid id, DevEventSpeaker speaker)
         {
             var devEvent = _context.DevEvents.SingleOrDefault(d => d.Id == id);
 
@@ -99,6 +105,8 @@ namespace AwesomeDevEvents.API.Controllers
                 return NotFound();
             }
             devEvent.Speakers.Add(speaker);
+            _context.SaveChanges();
+
 
             return NoContent();
         }
